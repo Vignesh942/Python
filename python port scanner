@@ -1,0 +1,20 @@
+import socket
+
+def scan(target, ports):
+    for port in range(1, ports + 1):
+        scanner_port(target, port)
+
+def scanner_port(ipaddress, port):
+    try:
+
+        soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        soc.settimeout(1)
+        soc.connect((ipaddress, port))
+        print(f"[+] Port {port} is open")
+        soc.close()
+    except (socket.timeout, socket.error):
+        print(f"[-] Port {port} is closed")
+
+target_ip = input("Enter target IP address: ")
+ports = int(input("Enter the number of ports to scan: "))
+scan(target_ip, ports)
